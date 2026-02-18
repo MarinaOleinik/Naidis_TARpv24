@@ -1,5 +1,7 @@
 
 
+using System.Security.Cryptography.X509Certificates;
+
 namespace Naidis_TARpv24;
 
 public partial class Valgusfoor : ContentPage
@@ -9,6 +11,7 @@ public partial class Valgusfoor : ContentPage
     VerticalStackLayout vst;
     Label pealdis;
     List<string> sisse_välja_nuppud = new List<string> { "Sisse", "Välja" };
+    BoxView punane, kollane, roheline;
     public Valgusfoor()
 	{
         TapGestureRecognizer tap = new TapGestureRecognizer();
@@ -34,86 +37,78 @@ public partial class Valgusfoor : ContentPage
                 HorizontalOptions = LayoutOptions.Center,
                 VerticalOptions = LayoutOptions.Center
             };
+            if (i == 0) punane = boxView;
+            else if (i == 1) kollane = boxView;
+            else if (i == 2) roheline = boxView;
             vst.Add(boxView);
+            
+            tap.Tapped += (sender, e) =>{
+                BoxView vajutatudKast = (BoxView)sender; 
+                Naita_Tekst(vajutatudKast);};
             boxView.GestureRecognizers.Add(tap);
-            tap.Tapped += (sender, e) =>
-            {
-                if (SisseValja)
-                {
-                    if (boxView == vst.Children[1])
-                    {
-                        pealdis.Text = "Punane tuli/Seisa!";
-                    }
-                    else if (boxView == vst.Children[2])
-                    {
-                        pealdis.Text = "Kollane tuli/Valmistu!";
-                    }
-                    else if (boxView == vst.Children[3])
-                    {
-                        pealdis.Text = "Roheline tuli/Sõida!";
-                    }
-                }
-                else
-                {
-                    pealdis.Text = "Valgusfoor on vaja sisse panna";
-                }
-            };
         }
-
         
-        hst = new HorizontalStackLayout { Padding = 20, Spacing = 15 };
-        for (int i = 0; i < 2; i++)
-        {
-            Button nupp = new Button
-            {
-                Text = sisse_välja_nuppud[i],
-                FontSize = 36,
-                FontFamily = "Luffio",
-                BackgroundColor = Colors.LightGray,
-                TextColor = Colors.Black,
-                CornerRadius = 10,
-                HeightRequest = 60,
-                ZIndex = i,
+        
+        hst = new HorizontalStackLayout { Padding = 20, Spacing = 15, HorizontalOptions=LayoutOptions.Center};
+        Button sisse = new Button { Text = "Sisse",
+            FontFamily = "Luffio",
+            FontSize = 38,
+            HorizontalOptions = LayoutOptions.Center,
+            VerticalOptions = LayoutOptions.Center /*...*/
+        };
+        sisse.Clicked += Sisse_Clicked; // Teeme eraldi meetodi puhtuse mõttes
 
-            };
-            hst.Add(nupp);
-            nupp.Clicked += (sender, e) =>
-            {
-                SisseValja = !SisseValja;
-                if (SisseValja) 
-                { 
-                    foreach (var child in vst.Children)
-                    {
-                        if (child is BoxView box)
-                        {
-                            if (box == vst.Children[1])
-                            {
-                                box.Color = Colors.Red;
-                            }
-                            else if (box == vst.Children[2])
-                            {
-                                box.Color = Colors.Yellow;
-                            }
-                            else if (box == vst.Children[3])
-                            {
-                                box.Color = Colors.Green;
-                            }
-                        }
-                    }
-                }
-                else { 
-                    foreach (var child in vst.Children)
-                    {
-                        if (child is BoxView box)
-                        {
-                            box.Color = Colors.Gray;
-                        }
-                    }
-                }
-
-            };
-        }
+        Button valja = new Button { Text = "Välja", 
+            FontFamily = "Luffio",
+            FontSize = 38,
+            HorizontalOptions = LayoutOptions.Center,
+            VerticalOptions = LayoutOptions.Center, /*...*/ };
+        valja.Clicked += Valja_Clicked;
+        hst.Add( sisse );
+        hst.Add( valja );
         vst.Add(hst);
         Content = vst;
+    }
+
+    private void Valja_Clicked(object? sender, EventArgs e)
+    {
+        SisseValja = false;
+        // Me ei pea otsima neid Children hulgast, meil on muutujad olemas!
+        punane.Color = Colors.Gray;
+        kollane.Color = Colors.Gray;
+        roheline.Color = Colors.Gray;
+        pealdis.Text = "Foor on välja lülitatud";
+    }
+
+    private void Sisse_Clicked(object? sender, EventArgs e)
+    {
+        SisseValja = true;
+        punane.Color = Colors.Red;
+        kollane.Color = Colors.Yellow;
+        roheline.Color = Colors.Green;
+        pealdis.Text = "Foor on sisse lülitatud";
+    }
+
+    public void Naita_Tekst(BoxView vajutatudBox)
+    {
+        if (!SisseValja)
+        {
+            pealdis.Text = "Foor on vaja sisse panna";
+            return;
+        }
+
+        // 3. Võrdleme otse muutujatega (palju selgem kui indeksid)
+        if (vajutatudBox == punane)
+        {
+            pealdis.Text = "Punane tuli/Seisa!";
+        }
+        else if (vajutatudBox == kollane)
+        {
+            pealdis.Text = "Kollane tuli/Valmistu!";
+        }
+        else if (vajutatudBox == roheline)
+        {
+            pealdis.Text = "Roheline tuli/Sõida!";
+        }
     }
 }
