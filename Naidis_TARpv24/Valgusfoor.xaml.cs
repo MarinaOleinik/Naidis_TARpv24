@@ -89,7 +89,7 @@ public partial class Valgusfoor : ContentPage
         pealdis.Text = "Foor on sisse lülitatud";
     }
 
-    public void Naita_Tekst(BoxView vajutatudBox)
+    public async void Naita_Tekst(BoxView vajutatudBox)
     {
         if (!SisseValja)
         {
@@ -101,6 +101,7 @@ public partial class Valgusfoor : ContentPage
         if (vajutatudBox == punane)
         {
             pealdis.Text = "Punane tuli/Seisa!";
+            
         }
         else if (vajutatudBox == kollane)
         {
@@ -110,5 +111,23 @@ public partial class Valgusfoor : ContentPage
         {
             pealdis.Text = "Roheline tuli/Sõida!";
         }
+        await vajutatudBox.ScaleTo(1.2, 150);
+        await vajutatudBox.ScaleTo(1.0, 150);
+
+        //TeeAnimatsioon(vajutatudBox);
+    }
+    private async Task TeeAnimatsioon(View element)
+    {
+        // Suureneb ja muutub läbipaistvamaks
+        await Task.WhenAll(
+            element.ScaleTo(1.2, 150),
+            element.FadeTo(0.5, 150)
+        );
+
+        // Taastub algsesse olekusse
+        await Task.WhenAll(
+            element.ScaleTo(1.0, 150),
+            element.FadeTo(1.0, 150)
+        );
     }
 }
