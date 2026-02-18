@@ -11,6 +11,9 @@ public partial class FigurePage : ContentPage
 	HorizontalStackLayout hsl;
     List<string> nupud = new List<string>() { "Tagasi", "Avaleht", "Edasi" };
     VerticalStackLayout vsl;
+    Point A;
+    Point B;
+    Point C;
     public FigurePage()
 	{
         //BoxView kasutamine
@@ -25,6 +28,7 @@ public partial class FigurePage : ContentPage
             HorizontalOptions = LayoutOptions.Center,
             BackgroundColor=Color.FromRgba(0,0,0,0),//teeb ta läbipaistvaks, et saaks ta peale teksti panna
             CornerRadius = 30,
+            
         };
         TapGestureRecognizer tap = new TapGestureRecognizer();
         boxView.GestureRecognizers.Add(tap); // 
@@ -55,13 +59,16 @@ public partial class FigurePage : ContentPage
         };
         pall.GestureRecognizers.Add(tap);
         //Polygon kasutamine
+        A=new Point(0, r);
+        B=new Point(g,0);
+        C=new Point(g, b);
         kolmnurk = new Polygon
         {
             Points = new PointCollection
             {
-                new Point(0,200),  //vasak all
-                new Point(100,0),  //keskel
-                new Point(200,200) //parem all
+                A,  //vasak all
+                B,  //keskel
+                C //parem all
             },
             Fill = new SolidColorBrush(Color.FromRgb(g, b, r)),//kujundi värv brush'i abil
             Stroke = Colors.Aquamarine,//äärise värv
@@ -74,7 +81,16 @@ public partial class FigurePage : ContentPage
         kolmnurk.GestureRecognizers.Add(tap_kolmnurk);
         tap_kolmnurk.Tapped += (sender, e) =>
         {
-           // mõtle ise välja
+            int r = rnd.Next(400);
+            int g = rnd.Next(400);
+            int b = rnd.Next(400);
+            kolmnurk.Fill = new SolidColorBrush(Color.FromRgb(g, b, r));
+            kolmnurk.Points = new PointCollection
+            {
+                new Point(0, r),
+                new Point(g,0),
+                new Point(g, b)
+            };
         };
 
         hsl = new HorizontalStackLayout { Spacing = 20, HorizontalOptions = LayoutOptions.Center };

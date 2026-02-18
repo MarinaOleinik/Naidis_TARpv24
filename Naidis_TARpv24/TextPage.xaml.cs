@@ -48,11 +48,22 @@ public partial class TextPage : ContentPage
 			hsl.Add(nupp);
             nupp.Clicked += Liikumine;
         }
-		vsl = new VerticalStackLayout 
+        Button tekst_to_sp = new Button
+        {
+            Text = "R‰‰gi",
+            FontSize = 28,
+            FontFamily = "Luffio",
+            TextColor = Colors.BlueViolet,
+            BackgroundColor = Colors.LightGray,
+            CornerRadius = 10,
+            HeightRequest = 50
+        };
+		
+        vsl = new VerticalStackLayout 
 		{ 
 			Padding = 20, 
 			Spacing = 15,
-			Children = { lbl, editor, hsl },
+			Children = { lbl, editor, hsl, tekst_to_sp },
 			HorizontalOptions = LayoutOptions.Center
         };
 		Content = vsl;
@@ -74,4 +85,5 @@ public partial class TextPage : ContentPage
             Navigation.PushAsync(new FigurePage());
         }	
     }
+	
 }
