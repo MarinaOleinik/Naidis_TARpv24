@@ -10,7 +10,6 @@ public partial class Valgusfoor : ContentPage
     HorizontalStackLayout hst;
     VerticalStackLayout vst;
     Label pealdis;
-    List<string> sisse_välja_nuppud = new List<string> { "Sisse", "Välja" };
     BoxView punane, kollane, roheline;
     public Valgusfoor()
 	{
