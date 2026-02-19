@@ -7,6 +7,7 @@ public partial class DateTimePage : ContentPage
 	DatePicker datePicker;
 	TimePicker timePicker;
 	Label datetimeLabel;
+	Picker picker;
     AbsoluteLayout al;
     public DateTimePage()
 	{
@@ -40,8 +41,29 @@ public partial class DateTimePage : ContentPage
 			HorizontalOptions = LayoutOptions.Center,
 			VerticalOptions = LayoutOptions.Center
 		};
-		al = new AbsoluteLayout { Children = { datePicker, timePicker, datetimeLabel } };
-		List<View> controls = new List<View> { datePicker, timePicker, datetimeLabel };
+		picker=new Picker
+		{
+			Title = "Vali värv",
+			ItemsSource = new List<string> { "Sinine", "Must","Valge" },
+			HorizontalOptions = LayoutOptions.Center
+		};
+		picker.SelectedIndexChanged += (sender, e) =>
+		{
+			switch (picker.SelectedIndex)
+			{
+				case 0:
+					this.BackgroundColor = Colors.LightBlue;
+					break;
+                case 1:
+					this.BackgroundColor = Colors.DarkGrey;
+                    break;
+                case 2:
+                    this.BackgroundColor = Colors.White;
+                    break;
+            }
+		};
+        al = new AbsoluteLayout { Children = { datePicker, timePicker, datetimeLabel,picker } };
+		List<View> controls = new List<View> { datePicker, timePicker, datetimeLabel, picker};
 		for (int i = 0; i < controls.Count; i++)
 		{
 			double yKoht=0.2 + i * 0.2; // 0.2, 0.4, 0.6
