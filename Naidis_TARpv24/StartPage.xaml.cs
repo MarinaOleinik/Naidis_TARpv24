@@ -32,7 +32,56 @@ public partial class StartPage : ContentPage
 				Navigation.PushAsync(valik);
 			};
 		}
-		sv=new ScrollView { Content=vst };
+        // Loome punase testnupu
+        Button nulliNupp = new Button
+        {
+            Text = "Nulli seaded (Testimiseks)",
+            BackgroundColor = Colors.Red,
+            TextColor = Colors.White,
+            CornerRadius = 10,
+            HeightRequest = 50,
+            Margin = new Thickness(0, 30, 0, 0) // Jätame veidi tühja ruumi üles
+        };
+
+        // Mis juhtub nupule vajutades?
+        nulliNupp.Clicked += async (sender, e) =>
+        {
+            // Kustutame seadme mälust meie spetsiifilise võtme
+            Preferences.Default.Remove("EsimeneKäivitamine");
+
+            // Anname tagasisidet, et nullimine õnnestus
+            await DisplayAlert("Edukalt nullitud", "Mälu on tühjendatud. Kui sa lehe uuesti avad, käitub äpp nagu täiesti uus!", "OK");
+        };
+
+        // Ärge unustage nuppu oma Layouti (nt vst või stackLayout) lisada!
+        vst.Add(nulliNupp);
+        sv = new ScrollView { Content=vst };
 		Content = sv;
+    }
+    // LISAME SELLE SIIA:
+    protected override async void OnAppearing()
+    {
+        base.OnAppearing();
+
+        // 1. Loeme seadme mälust muutuja "EsimeneKäivitamine". 
+        // Kui sellist muutujat pole (äpp on uus), annab see vaikimisi väärtuseks 'true'.
+        bool onEsimeneStart = Preferences.Default.Get("EsimeneKäivitamine", true);
+
+        // 2. Kui on esimene start, kuvame dialoogiakna
+        if (onEsimeneStart)
+        {
+            bool vastus = await DisplayAlert("Tere tulemast!",
+                                             "Tundub, et avasid selle rakenduse esimest korda. Kas soovid näha lühikest juhendit?",
+                                             "Jah, palun",
+                                             "Ei, saan ise hakkama");
+
+            if (vastus)
+            {
+                await DisplayAlert("Juhend", "Siin on sinu lühike juhend: vali menüüst sobiv teema ja uuri, kuidas elemendid töötavad!", "Selge");
+            }
+
+            // 3. Salvestame info, et esimene käivitamine on tehtud.
+            Preferences.Default.Set("EsimeneKäivitamine", false);
+        }
     }
 }
