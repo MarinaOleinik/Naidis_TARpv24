@@ -6,8 +6,8 @@ public partial class StartPage : ContentPage
 {
 	VerticalStackLayout vst;
 	ScrollView sv;
-	public List<ContentPage> Lehed = new List<ContentPage>() { new TextPage(), new FigurePage(),new Valgusfoor(),new DateTimePage(),new StepperSliderPage() };
-	public List<string> LeheNimed = new List<string>() { "Tekst", "Kujund", "Valgusfoor", "Kuupäev/Aeg", "Liigur" };
+	public List<ContentPage> Lehed = new List<ContentPage>() { new TextPage(), new FigurePage(),new Valgusfoor(),new DateTimePage(),new StepperSliderPage(),new Pop_Up_Page(),new Lumememm() };
+	public List<string> LeheNimed = new List<string>() { "Tekst", "Kujund", "Valgusfoor", "Kuupäev/Aeg", "Liigur", "Pop_Up Aknad" ,"Lumememm"};
     public StartPage()
 	{
 		//Title = "Avaleht";
@@ -50,7 +50,7 @@ public partial class StartPage : ContentPage
             Preferences.Default.Remove("EsimeneKäivitamine");
 
             // Anname tagasisidet, et nullimine õnnestus
-            await DisplayAlert("Edukalt nullitud", "Mälu on tühjendatud. Kui sa lehe uuesti avad, käitub äpp nagu täiesti uus!", "OK");
+            await DisplayAlertAsync("Edukalt nullitud", "Mälu on tühjendatud. Kui sa lehe uuesti avad, käitub äpp nagu täiesti uus!", "OK");
         };
 
         // Ärge unustage nuppu oma Layouti (nt vst või stackLayout) lisada!
@@ -70,14 +70,16 @@ public partial class StartPage : ContentPage
         // 2. Kui on esimene start, kuvame dialoogiakna
         if (onEsimeneStart)
         {
-            bool vastus = await DisplayAlert("Tere tulemast!",
+            bool vastus = await DisplayAlertAsync("Tere tulemast!",
                                              "Tundub, et avasid selle rakenduse esimest korda. Kas soovid näha lühikest juhendit?",
                                              "Jah, palun",
                                              "Ei, saan ise hakkama");
 
             if (vastus)
             {
-                await DisplayAlert("Juhend", "Siin on sinu lühike juhend: vali menüüst sobiv teema ja uuri, kuidas elemendid töötavad!", "Selge");
+                await DisplayAlertAsync("Juhend", 
+                    "Siin on sinu lühike juhend: vali menüüst sobiv teema ja uuri, kuidas elemendid töötavad!", 
+                    "Selge");
             }
 
             // 3. Salvestame info, et esimene käivitamine on tehtud.

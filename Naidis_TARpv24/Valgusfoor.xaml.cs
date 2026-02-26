@@ -110,8 +110,8 @@ public partial class Valgusfoor : ContentPage
         {
             pealdis.Text = "Roheline tuli/Sõida!";
         }
-        await vajutatudBox.ScaleTo(1.2, 150);
-        await vajutatudBox.ScaleTo(1.0, 150);
+        await vajutatudBox.ScaleToAsync(1.2, 150);
+        await vajutatudBox.ScaleToAsync(1.0, 150);
 
         //TeeAnimatsioon(vajutatudBox);
     }
@@ -119,14 +119,14 @@ public partial class Valgusfoor : ContentPage
     {
         // Suureneb ja muutub läbipaistvamaks
         await Task.WhenAll(
-            element.ScaleTo(1.2, 150),
-            element.FadeTo(0.5, 150)
+            element.ScaleToAsync(1.2, 150),
+            element.FadeToAsync(0.5, 150)
         );
 
         // Taastub algsesse olekusse
         await Task.WhenAll(
-            element.ScaleTo(1.0, 150),
-            element.FadeTo(1.0, 150)
+            element.ScaleToAsync(1.0, 150),
+            element.FadeToAsync(1.0, 150)
         );
     }
 }
