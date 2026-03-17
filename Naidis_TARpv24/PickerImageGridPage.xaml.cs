@@ -102,12 +102,16 @@ public partial class PickerImageGridPage : ContentPage
                     BackgroundColor = Color.FromRgb(rnd.Next(256), rnd.Next(256), rnd.Next(256)),
                 };
                 gr3x3.Add(kast, c, r);
+				int rida = r;//uus 
+				int veerg = c;//uus
                 TapGestureRecognizer tap = new TapGestureRecognizer();
-                tap.Tapped += (s, args) =>
+                tap.Tapped += async (s, args) => //uuendatud
                 {
                     kast.BackgroundColor = Color.FromRgb(rnd.Next(256), rnd.Next(256), rnd.Next(256));
+					await DisplayAlertAsync("Koordinaadid", $"Vajutasid lahtrisse:\nRida: {rida}\nVeerg: {veerg}", "Selge");//uus
                 };
                 kast.GestureRecognizers.Add(tap);
+				
             }
         }
 		return gr3x3;
