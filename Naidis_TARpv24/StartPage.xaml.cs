@@ -16,7 +16,8 @@ public partial class StartPage : ContentPage
         new Lumememm(), 
         new PickerImageGridPage(), 
         new TablePage(),
-        new ListViewPage()
+        new ListViewPage(),
+        new Raamat()
     };
 	public List<string> LeheNimed = new List<string>() { 
         "Tekst", 
@@ -28,7 +29,8 @@ public partial class StartPage : ContentPage
         "Lumememm",
         "Ava grid",
         "Tabel",
-        "Loetelu"
+        "Loetelu",
+        "Kontaktid"
     };
     public StartPage()
 	{
