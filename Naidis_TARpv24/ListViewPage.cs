@@ -29,9 +29,9 @@ namespace Naidis_TARpv24
             // Andmebaasi algväärtustamine
             telefons = new ObservableCollection<Telefon>
             {
-                new Telefon { Nimetus="Samsung Galaxy S22 Ultra", Tootja="Samsung", Hind=1349, Pilt="Galaxy.png" },
-                new Telefon { Nimetus="Xiaomi Mi 11 Lite 5G NE", Tootja="Xiaomi", Hind=399, Pilt="Xiaomi5GNE.png" },
-                new Telefon { Nimetus="iPhone 17", Tootja="Apple", Hind=1179, Pilt="iPhone17.png" }
+                new Telefon { Nimetus="Samsung Galaxy S22 Ultra", Tootja="Samsung", Hind=1349, Pilt="galaxy.png" },
+                new Telefon { Nimetus="Xiaomi Mi 11 Lite 5G NE", Tootja="Xiaomi", Hind=399, Pilt="xiaomi5gne.png" },
+                new Telefon { Nimetus="iPhone 17", Tootja="Apple", Hind=1179, Pilt="iphone.png" }
             };
 
             // Tekstilahtrite loomine
@@ -79,8 +79,21 @@ namespace Naidis_TARpv24
                     VerticalOptions = LayoutOptions.Center,
                     Margin = new Thickness(0, 0, 10, 0) // Paremalt veeris, kui pilt on vasakul
                 };
-                imgPilt.SetBinding(Image.SourceProperty, "Pilt"); // Seome pildi failinimega
+                //imgPilt.SetBinding(Image.SourceProperty, "Pilt"); // Seome pildi failinimega
+                // Loome uue sidumise atribuudiga "Pilt"
+                Binding pildiSidumine = new Binding("Pilt");
 
+                // Määrame vaikimisi pildi failinime või asukoha
+                string vaikimisiPilt = "phone.png"; // Veenduge, et see fail on projektis olemas
+
+                // Kasutatakse siis, kui seotud väärtus on null
+                pildiSidumine.TargetNullValue = vaikimisiPilt;
+
+                // Kasutatakse siis, kui sidumine ebaõnnestub täielikult (nt omadust "Pilt" ei leita)
+                pildiSidumine.FallbackValue = vaikimisiPilt;
+
+                // Rakendame sidumise pildielemendile
+                imgPilt.SetBinding(Image.SourceProperty, pildiSidumine);
                 // -- 2. Loome tekstid --
                 Label lblNimetus = new Label { FontSize = 18, FontAttributes = FontAttributes.Bold, VerticalOptions = LayoutOptions.Center };
                 lblNimetus.SetBinding(Label.TextProperty, "Nimetus");
