@@ -30,7 +30,7 @@ namespace Naidis_TARpv24
             telefons = new ObservableCollection<Telefon>
             {
                 new Telefon { Nimetus="Samsung Galaxy S22 Ultra", Tootja="Samsung", Hind=1349, Pilt="galaxy.png" },
-                new Telefon { Nimetus="Xiaomi Mi 11 Lite 5G NE", Tootja="Xiaomi", Hind=399, Pilt="xiaomi5gne.png" },
+                new Telefon { Nimetus="Xiaomi Mi 11 Lite 5G NE", Tootja="Xiaomi", Hind=399, Pilt="xiaomi5gne.png" }, //kui panna null faili nimetuse asemel, siis näitab phone.png fail
                 new Telefon { Nimetus="iPhone 17", Tootja="Apple", Hind=1179, Pilt="iphone.png" }
             };
 
