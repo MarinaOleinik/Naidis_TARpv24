@@ -17,7 +17,9 @@ public partial class StartPage : ContentPage
         new PickerImageGridPage(), 
         new TablePage(),
         new ListViewPage(),
-        new Raamat()
+        new Raamat(),
+        new KarussellPage_1(),
+        new PiltideHaldus()
     };
 	public List<string> LeheNimed = new List<string>() { 
         "Tekst", 
@@ -30,7 +32,9 @@ public partial class StartPage : ContentPage
         "Ava grid",
         "Tabel",
         "Loetelu",
-        "Kontaktid"
+        "Kontaktid",
+        "Karussell",
+        "Piltide haldus"
     };
     public StartPage()
 	{

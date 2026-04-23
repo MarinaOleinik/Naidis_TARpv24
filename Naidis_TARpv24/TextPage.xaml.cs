@@ -25,8 +25,9 @@ public partial class TextPage : ContentPage
 			FontSize = 18,
 			FontAttributes = FontAttributes.Italic,
             HorizontalOptions = LayoutOptions.Center,
+			Keyboard = Keyboard.Chat
 
-		};
+        };
 		editor.TextChanged += (sender, e) =>
 		{
 			lbl.Text = editor.Text;

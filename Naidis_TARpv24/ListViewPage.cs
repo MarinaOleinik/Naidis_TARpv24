@@ -194,7 +194,7 @@ namespace Naidis_TARpv24
                 int.TryParse(entryHind.Text, out hind);
 
                 // Kui pildi failinime ei sisestata, kasuta vaikimisi pilti
-                string pildiNimi = string.IsNullOrWhiteSpace(entryPilt.Text) ? "default_phone.png" : entryPilt.Text;
+                string pildiNimi = string.IsNullOrWhiteSpace(entryPilt.Text) ? "phone.png" : entryPilt.Text;
 
                 telefons.Add(new Telefon
                 {
