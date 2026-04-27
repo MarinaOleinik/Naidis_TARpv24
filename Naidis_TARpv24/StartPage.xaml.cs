@@ -4,7 +4,8 @@ namespace Naidis_TARpv24;
 
 public partial class StartPage : ContentPage
 {
-	VerticalStackLayout vst;
+    AnimalViewModel vm;
+    VerticalStackLayout vst;
 	ScrollView sv;
 	public List<ContentPage> Lehed = new List<ContentPage>() { 
         new TextPage(), 
@@ -19,7 +20,7 @@ public partial class StartPage : ContentPage
         new ListViewPage(),
         new Raamat(),
         new KarussellPage_1(),
-        new PiltideHaldus()
+        new AnimalViewModel()
     };
 	public List<string> LeheNimed = new List<string>() { 
         "Tekst", 
@@ -38,8 +39,11 @@ public partial class StartPage : ContentPage
     };
     public StartPage()
 	{
-		//Title = "Avaleht";
-		vst=new VerticalStackLayout { Padding=20,Spacing=15 };
+        vm = new AnimalViewModel();
+        // Seome lehe vaatemudeliga
+        BindingContext = vm;
+        //Title = "Avaleht";
+        vst =new VerticalStackLayout { Padding=20,Spacing=15 };
 		for (int i=0; i < Lehed.Count; i++)
 		{
 			Button nupp = new Button
