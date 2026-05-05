@@ -20,7 +20,8 @@ public partial class StartPage : ContentPage
         new ListViewPage(),
         new Raamat(),
         new KarussellPage_1(),
-        new AnimalViewModel()
+        new AnimalViewModel(),
+        new TerminPage()
     };
 	public List<string> LeheNimed = new List<string>() { 
         "Tekst", 
@@ -35,7 +36,8 @@ public partial class StartPage : ContentPage
         "Loetelu",
         "Kontaktid",
         "Karussell",
-        "Piltide haldus"
+        "Piltide haldus",
+        "JSONi kasutamine"
     };
     public StartPage()
 	{
