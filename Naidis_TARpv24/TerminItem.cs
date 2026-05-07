@@ -8,24 +8,29 @@ namespace Naidis_TARpv24
 {
     public class TerminItem: INotifyPropertyChanged
     {
+        private string _nimi;
+        private string _selgitus;
         private bool _kasSelge;
 
         // Unikaalne ID aitab vältida vigu kustutamisel
         public string Id { get; set; } = Guid.NewGuid().ToString();
-        public string Nimi { get; set; }
-        public string Selgitus { get; set; }
+        // Tekst peab olema Property, muidu Binding ei leia seda üles
+        public string Nimi
+        {
+            get => _nimi;
+            set { _nimi = value; OnPropertyChanged(); }
+        }
+
+        public string Selgitus
+        {
+            get => _selgitus;
+            set { _selgitus = value; OnPropertyChanged(); }
+        }
 
         public bool KasSelge
         {
             get => _kasSelge;
-            set
-            {
-                if (_kasSelge != value)
-                {
-                    _kasSelge = value;
-                    OnPropertyChanged();
-                }
-            }
+            set { _kasSelge = value; OnPropertyChanged(); }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
