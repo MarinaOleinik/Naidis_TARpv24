@@ -80,7 +80,10 @@ namespace Naidis_TARpv24
         {
             var json = JsonSerializer.Serialize(Terminid);
             File.WriteAllText(_failiTee, json);
+            // Trükib salvestamise hetkel JSON-i sisu Visual Studio Output aknasse
+            System.Diagnostics.Debug.WriteLine($"\n--- MINU JSON FAIL --- \n{json}\n----------------------");
         }
+        
 
         private void LaeAndmed()
         {
